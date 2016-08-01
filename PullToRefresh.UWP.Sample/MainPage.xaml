@@ -1,0 +1,99 @@
+﻿<Page x:Class="PullToRefresh.UWP.Sample.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:PullToRefresh.UWP.Sample"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      x:Name="page">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+            <Style TargetType="TextBlock" x:Key="PaneText">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+        </Grid.Resources>
+
+        <SplitView x:Name="split"
+                   DisplayMode="Overlay"
+                   OpenPaneLength="240">
+            <SplitView.Pane>
+                <ListView x:Name="lv"
+                          SelectionMode="Single"
+                          IsItemClickEnabled="True"
+                          ItemClick="lv_ItemClick">
+                    <ListView.Header>
+                        <Grid Height="48"
+                              Background="Transparent"
+                              Tapped="lvHeader_Tapped">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <SymbolIcon Symbol="Accept" />
+                            <TextBlock Text="SCENARIOS"
+                                       Grid.Column="1"
+                                       FontWeight="Bold"
+                                       Style="{StaticResource PaneText}" />
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Padding" Value="0" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="48">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="48" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="{Binding Id}"
+                                           HorizontalAlignment="Center"
+                                           FontWeight="Bold"
+                                           Style="{StaticResource PaneText}" />
+                                <TextBlock Text="{Binding Name}"
+                                           Grid.Column="1"
+                                           Style="{StaticResource PaneText}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="48" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Background="Transparent"
+                            x:Name="ham"
+                            Click="ham_Click"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+                        <SymbolIcon Symbol="Accept" />
+                    </Button>
+
+                    <ScrollViewer HorizontalScrollMode="Disabled" Grid.Column="1">
+                        <TextBlock x:Name="descTxt"
+                                   FontSize="10"
+                                   Margin="0,0,8,0"
+                                   TextWrapping="WrapWholeWords" />
+                    </ScrollViewer>
+
+                    <Frame x:Name="frame"
+                           Grid.Row="1"
+                           Grid.ColumnSpan="2" />
+                </Grid>
+            </SplitView.Content>
+        </SplitView>
+    </Grid>
+</Page>

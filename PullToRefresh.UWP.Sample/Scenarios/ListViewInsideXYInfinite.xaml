@@ -1,0 +1,37 @@
+﻿<Page x:Class="PullToRefresh.UWP.Sample.Scenarios.ListViewInsideXYInfinite"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:PullToRefresh.UWP.Sample.Scenarios"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:pr="using:PullToRefresh.UWP"
+      mc:Ignorable="d">
+
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<ScrollViewer HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled">
+			<Canvas Width="1000" Height="1000">
+				<pr:PullToRefreshBox x:Name="pr"
+				                     RefreshInvoked="PullToRefreshBox_RefreshInvoked"
+				                     BorderBrush="Green"
+				                     BorderThickness="20">
+					<ListView x:Name="lv"
+					          ItemTemplate="{StaticResource ColorfulRectangle}"
+					          BorderBrush="LimeGreen"
+					          BorderThickness="20" />
+				</pr:PullToRefreshBox>
+
+				<Rectangle Fill="Red"
+				           Width="5"
+				           Height="1000" />
+				<Rectangle Fill="Blue"
+				           Width="1000"
+				           Height="5" />
+			</Canvas>
+		</ScrollViewer>
+
+		<Button Content="W"
+		        x:Name="keyW"
+		        Click="keyW_Click"
+		        VerticalAlignment="Bottom" />
+	</Grid>
+</Page>

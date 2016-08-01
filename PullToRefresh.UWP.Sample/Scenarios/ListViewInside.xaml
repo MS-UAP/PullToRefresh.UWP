@@ -1,0 +1,118 @@
+﻿<Page x:Class="PullToRefresh.UWP.Sample.Scenarios.ListViewInside"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:PullToRefresh.UWP.Sample.Scenarios"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:pr="using:PullToRefresh.UWP"
+      mc:Ignorable="d">
+	<Page.Resources>
+		<DataTemplate x:Key="dt1">
+			<Grid Width="120"
+			      Height="400"
+			      Background="Gray">
+				<TextBlock Text="{Binding}" VerticalAlignment="Bottom" />
+			</Grid>
+		</DataTemplate>
+
+		<DataTemplate x:Key="dt2">
+			<Grid Width="9999"
+			      Height="120"
+			      Background="LightBlue">
+				<TextBlock Text="Very large Grid"
+				           Margin="0,0,0,20"
+				           VerticalAlignment="Bottom"
+				           HorizontalAlignment="Center"
+				           Foreground="Red" />
+				<TextBlock Text="{Binding}"
+				           VerticalAlignment="Bottom"
+				           HorizontalAlignment="Center" />
+			</Grid>
+		</DataTemplate>
+
+		<DataTemplate x:Key="dt3">
+			<pr:PullRefreshProgressControl Progress="{Binding}">
+				<pr:PullRefreshProgressControl.Template>
+					<ControlTemplate>
+						<Grid Background="LightBlue"
+						      Height="130"
+						      Width="200">
+							<pr:PullRefreshProgressControl Progress="{Binding}"
+							                               HorizontalAlignment="Center"
+							                               VerticalAlignment="Bottom">
+								<pr:PullRefreshProgressControl.Template>
+									<ControlTemplate>
+										<Grid>
+											<VisualStateManager.VisualStateGroups>
+												<VisualStateGroup x:Name="VisualStateGroup">
+													<VisualState x:Name="Normal" />
+													<VisualState x:Name="ReleaseToRefresh">
+														<Storyboard>
+															<ObjectAnimationUsingKeyFrames Storyboard.TargetName="txt" Storyboard.TargetProperty="Text">
+																<DiscreteObjectKeyFrame KeyTime="0" Value="释放刷新" />
+															</ObjectAnimationUsingKeyFrames>
+														</Storyboard>
+													</VisualState>
+												</VisualStateGroup>
+											</VisualStateManager.VisualStateGroups>
+
+											<Grid.RowDefinitions>
+												<RowDefinition Height="auto" />
+												<RowDefinition Height="auto" />
+											</Grid.RowDefinitions>
+											<TextBlock Text="{Binding}"
+											           FontSize="24"
+											           Foreground="Gray"
+											           HorizontalAlignment="Center" />
+
+											<TextBlock x:Name="txt"
+											           Text="下拉刷新"
+											           Grid.Row="1"
+											           FontSize="20"
+											           HorizontalAlignment="Center" />
+
+										</Grid>
+									</ControlTemplate>
+								</pr:PullRefreshProgressControl.Template>
+							</pr:PullRefreshProgressControl>
+
+						</Grid>
+					</ControlTemplate>
+				</pr:PullRefreshProgressControl.Template>
+			</pr:PullRefreshProgressControl>
+		</DataTemplate>
+	</Page.Resources>
+
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<pr:PullToRefreshBox x:Name="pr"
+		                     RefreshInvoked="PullToRefreshBox_RefreshInvoked"
+		                     BorderBrush="Green"
+		                     BorderThickness="20">
+			<ListView x:Name="lv"
+			          ItemTemplate="{StaticResource ColorfulRectangle}"
+			          BorderBrush="LimeGreen"
+			          BorderThickness="20" />
+		</pr:PullToRefreshBox>
+
+		<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+			<Button x:Name="key1"
+			        Content="1"
+			        Click="key1_Click" />
+			<Button x:Name="key2"
+			        Content="2"
+			        Click="key2_Click" />
+			<Button x:Name="key3"
+			        Content="3"
+			        Click="key3_Click" />
+		</StackPanel>
+
+		<StackPanel Orientation="Horizontal"
+		            VerticalAlignment="Bottom"
+		            HorizontalAlignment="Right">
+			<Button x:Name="borderThick"
+			        Content="thick"
+			        Click="borderThick_Click" />
+		</StackPanel>
+
+	</Grid>
+</Page>

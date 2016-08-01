@@ -1,0 +1,380 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="using:PullToRefresh.UWP"
+                    xmlns:helper="using:PullToRefresh.UWP.Helper">
+
+    <Style TargetType="local:PullRefreshProgressControl">
+        <Setter Property="PullToRefreshText" Value="下拉刷新" />
+        <Setter Property="ReleaseToRefreshText" Value="释放刷新" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:PullRefreshProgressControl">
+                    <Grid Height="120" Width="200">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition To="ReleaseToRefresh">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="PullToRefreshText3D"
+                                                             Storyboard.TargetProperty="RotationX"
+                                                             Duration="0:0:0.1"
+                                                             From="0"
+                                                             To="90" />
+                                            <DoubleAnimation Storyboard.TargetName="ReleaseToRefreshText3D"
+                                                             Storyboard.TargetProperty="RotationX"
+                                                             Duration="0:0:0.1"
+                                                             BeginTime="0:0:0.1"
+                                                             From="-90"
+                                                             To="0" />
+                                        </Storyboard>
+                                    </VisualTransition>
+                                    <VisualTransition To="Normal">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ReleaseToRefreshText3D"
+                                                             Storyboard.TargetProperty="RotationX"
+                                                             Duration="0:0:0.1"
+                                                             From="0"
+                                                             To="90" />
+
+                                            <DoubleAnimation Storyboard.TargetName="PullToRefreshText3D"
+                                                             Storyboard.TargetProperty="RotationX"
+                                                             From="-90"
+                                                             To="0"
+                                                             BeginTime="0:0:0.1"
+                                                             Duration="0:0:0.1" />
+                                        </Storyboard>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="ReleaseToRefresh">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0"
+                                                         Storyboard.TargetName="PullToRefreshText3D"
+                                                         Storyboard.TargetProperty="RotationX"
+                                                         To="90" />
+                                        <DoubleAnimation Duration="0"
+                                                         Storyboard.TargetName="ReleaseToRefreshText3D"
+                                                         Storyboard.TargetProperty="RotationX"
+                                                         To="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid Height="50"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Bottom">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid>
+                                <Grid.Resources>
+                                    <helper:PullToRefreshProgressConverter x:Key="PTRPC" />
+                                </Grid.Resources>
+                                <Ellipse Stroke="Gray"
+                                         RenderTransformOrigin="0.5,0.5"
+                                         StrokeThickness="1"
+                                         Width="30"
+                                         Height="30"
+                                         StrokeDashArray="{Binding Converter={StaticResource PTRPC}}">
+                                    <Ellipse.RenderTransform>
+                                        <CompositeTransform Rotation="-90" />
+                                    </Ellipse.RenderTransform>
+                                </Ellipse>
+                                <FontIcon Glyph="&#xE74B;"
+                                          x:Name="Arrow"
+                                          Foreground="Gray"
+                                          FontSize="15"
+                                          FontWeight="SemiBold"
+                                          IsTextScaleFactorEnabled="False" />
+                            </Grid>
+
+                            <Grid Grid.Column="1"
+                                  VerticalAlignment="Center"
+                                  Margin="12,0,0,0">
+
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="Gray" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="FontSize" Value="12" />
+                                    </Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="Height" Value="20" />
+                                    </Style>
+                                </Grid.Resources>
+
+                                <Grid>
+                                    <Grid.Projection>
+                                        <PlaneProjection RotationX="0" x:Name="PullToRefreshText3D" />
+                                    </Grid.Projection>
+                                    <TextBlock x:Name="PullToRefreshText"
+                                               Text="{TemplateBinding PullToRefreshText}"
+                                               IsTextScaleFactorEnabled="False" />
+
+                                </Grid>
+                                <Grid>
+                                    <Grid.Projection>
+                                        <PlaneProjection RotationX="-90" x:Name="ReleaseToRefreshText3D" />
+                                    </Grid.Projection>
+                                    <TextBlock x:Name="ReleaseToRefreshText"
+                                               Text="{TemplateBinding ReleaseToRefreshText}"
+                                               IsTextScaleFactorEnabled="False" />
+
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:PullToRefreshBox">
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="TopIndicatorTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <local:PullRefreshProgressControl Progress="{Binding}" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:PullToRefreshBox">
+                    <ScrollViewer x:Name="OuterScrollViewer"
+                                  VerticalScrollBarVisibility="Hidden"
+                                  VerticalScrollMode="Auto"
+                                  HorizontalScrollBarVisibility="Hidden"
+                                  HorizontalScrollMode="Disabled"
+                                  IsScrollInertiaEnabled="False"
+                                  IsVerticalScrollChainingEnabled="False"
+                                  IsTabStop="False"
+                                  BringIntoViewOnFocusChange="False"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  Background="{TemplateBinding Background}">
+
+                        <Grid x:Name="Grid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                            <Canvas HorizontalAlignment="Center"
+                                    Width="0"
+                                    x:Name="Canvas">
+                                <Grid Canvas.Left="-5000000" Width="10000000">
+                                    <ContentControl x:Name="TopRefreshIndicator"
+                                                    IsHitTestVisible="False"
+                                                    HorizontalContentAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    IsTabStop="False"
+                                                    ContentTemplate="{TemplateBinding TopIndicatorTemplate}" />
+                                </Grid>
+                            </Canvas>
+
+                            <ContentPresenter x:Name="Inner"
+                                              Grid.Row="1"
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" />
+                        </Grid>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  Deprecated as Removed.  -->
+    <!--
+    <Style TargetType="local:PullToRefreshScrollViewer">
+        <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto" />
+        <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="True" />
+        <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="True" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="TopIndicatorTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <local:PullRefreshProgressControl Progress="{Binding}" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:PullToRefreshScrollViewer">
+                    <ScrollViewer x:Name="OuterScrollViewer"
+                                  VerticalScrollBarVisibility="Hidden"
+                                  VerticalScrollMode="Auto"
+                                  HorizontalScrollBarVisibility="Hidden"
+                                  HorizontalScrollMode="Disabled"
+                                  IsScrollInertiaEnabled="False"
+                                  IsVerticalScrollChainingEnabled="False"
+                                  IsTabStop="False"
+                                  BringIntoViewOnFocusChange="False"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}">
+                        <ScrollViewer.Template>
+                            <!-  Hide this ScrollViewer by limiting its effects  -
+                            <ControlTemplate>
+                                <!-  We put Border here, in order to get system behavior when the whole ScrollViewer is in StackPanel -
+                                <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                    <ScrollContentPresenter x:Name="ScrollContentPresenter" />
+                                </Border>
+                            </ControlTemplate>
+                        </ScrollViewer.Template>
+
+                        <Grid x:Name="Grid" Background="{TemplateBinding Background}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                            <Canvas HorizontalAlignment="Center"
+                                    Width="0"
+                                    x:Name="Canvas">
+                                <Grid Canvas.Left="-5000000" Width="10000000">
+                                    <ContentControl x:Name="TopRefreshIndicator"
+                                                    IsHitTestVisible="False"
+                                                    HorizontalContentAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    IsTabStop="False"
+                                                    ContentTemplate="{TemplateBinding TopIndicatorTemplate}" />
+                                </Grid>
+                            </Canvas>
+
+                            <!-  Some DP are owned by ScrollViewer, even we access them from PTRScrollViewer.  -
+                            <ScrollViewer x:Name="InnerScrollViewer"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                          ContentTransitions="{TemplateBinding ContentTransitions}"
+                                          Padding="{TemplateBinding Padding}"
+                                          BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}"
+                                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                          HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                          IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                          IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                          IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}"
+                                          IsScrollInertiaEnabled="{TemplateBinding ScrollViewer.IsScrollInertiaEnabled}"
+                                          IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                                          IsVerticalScrollChainingEnabled="True"
+                                          IsZoomChainingEnabled="{TemplateBinding ScrollViewer.IsZoomChainingEnabled}"
+                                          IsZoomInertiaEnabled="{TemplateBinding ScrollViewer.IsZoomInertiaEnabled}"
+                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                          VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                                          ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}"
+                                          HorizontalSnapPointsAlignment="{TemplateBinding HorizontalSnapPointsAlignment}"
+                                          LeftHeader="{TemplateBinding LeftHeader}"
+                                          MaxZoomFactor="{TemplateBinding MaxZoomFactor}"
+                                          MinZoomFactor="{TemplateBinding MinZoomFactor}"
+                                          TopHeader="{TemplateBinding TopHeader}"
+                                          TopLeftHeader="{TemplateBinding TopLeftHeader}"
+                                          VerticalSnapPointsAlignment="{TemplateBinding VerticalSnapPointsAlignment}"
+                                          ZoomSnapPointsType="{TemplateBinding ZoomSnapPointsType}"
+                                          Grid.Row="1" />
+
+                            <Rectangle x:Name="BottomPlaceholder"
+                                       IsTapEnabled="False"
+                                       IsHitTestVisible="False"
+                                       Grid.Row="2" />
+                        </Grid>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:PullToRefreshListView">
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="TabNavigation" Value="Once" />
+        <Setter Property="IsSwipeEnabled" Value="True" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled" />
+        <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="False" />
+        <Setter Property="ScrollViewer.VerticalScrollMode" Value="Enabled" />
+        <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="True" />
+        <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
+        <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
+        <Setter Property="ScrollViewer.BringIntoViewOnFocusChange" Value="True" />
+        <Setter Property="ItemContainerTransitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <AddDeleteThemeTransition />
+                    <ContentThemeTransition />
+                    <ReorderThemeTransition />
+                    <EntranceThemeTransition IsStaggeringEnabled="False" />
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="TopIndicatorTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <local:PullRefreshProgressControl Progress="{Binding}" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:PullToRefreshListView">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}">
+                        <local:PullToRefreshScrollViewer x:Name="PullToRefreshScrollViewer"
+                                                         AutomationProperties.AccessibilityView="Raw"
+                                                         ScrollViewer.BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}"
+                                                         ScrollViewer.HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                                         ScrollViewer.HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                                         ScrollViewer.IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                                         ScrollViewer.IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}"
+                                                         ScrollViewer.IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}"
+                                                         ScrollViewer.IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                                                         ScrollViewer.IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                                         TabNavigation="{TemplateBinding TabNavigation}"
+                                                         ScrollViewer.VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                                         ScrollViewer.VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                                                         ScrollViewer.ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}"
+                                                         TopIndicatorTemplate="{TemplateBinding TopIndicatorTemplate}"
+                                                         RefreshThreshold="{TemplateBinding RefreshThreshold}">
+                            <ItemsPresenter FooterTransitions="{TemplateBinding FooterTransitions}"
+                                            FooterTemplate="{TemplateBinding FooterTemplate}"
+                                            Footer="{TemplateBinding Footer}"
+                                            HeaderTemplate="{TemplateBinding HeaderTemplate}"
+                                            Header="{TemplateBinding Header}"
+                                            HeaderTransitions="{TemplateBinding HeaderTransitions}"
+                                            Padding="{TemplateBinding Padding}" />
+                        </local:PullToRefreshScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    -->
+    <!--  Deprecated as Removed.  -->
+
+</ResourceDictionary>

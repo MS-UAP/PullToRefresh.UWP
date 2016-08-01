@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>PullToRefresh.UWP</id>
+    <version>0.3.4</version>
+    <title>PullToRefresh.UWP</title>
+    <authors>MS-UAP</authors>
+    <owners>MS-UAP</owners>
+    <projectUrl>http://www.cnblogs.com/ms-uap</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Generic Pull Down to Refresh implementation for UWP.</description>
+    <copyright>Copyright 2015</copyright>
+    <tags>UWP XAML</tags>
+  </metadata>
+  <files>
+	  <file src="..\bin\Release\PullToRefresh.UWP.winmd" target="lib\uap10.0" />
+	  <file src="..\bin\Release\PullToRefresh.UWP.pri" target="lib\uap10.0" />
+	  <file src="..\bin\Release\PullToRefresh.UWP.xr.xml" target="lib\uap10.0\PullToRefresh.UWP" />
+	  <file src="..\bin\Release\Themes\Generic.xbf" target="lib\uap10.0\PullToRefresh.UWP\Themes" />
+	  <file src="..\Properties\PullToRefresh.UWP.rd.xml" target="lib\uap10.0\PullToRefresh.UWP\Properties" />
+  </files>
+</package>
