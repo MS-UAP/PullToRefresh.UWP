@@ -116,18 +116,6 @@
     <Compile Include="Scenarios\ListViewInsideXYInfinite.xaml.cs">
       <DependentUpon>ListViewInsideXYInfinite.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Scenarios\UIVirtualization.xaml.cs">
-      <DependentUpon>UIVirtualization.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Scenarios\Virtualization\UIVirtualizationCoreNoVir.xaml.cs">
-      <DependentUpon>UIVirtualizationCoreNoVir.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Scenarios\Virtualization\UIVirtualizationCore.xaml.cs">
-      <DependentUpon>UIVirtualizationCore.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Scenarios\WrongCustomTemplate.xaml.cs">
-      <DependentUpon>WrongCustomTemplate.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -163,22 +151,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Scenarios\ListViewInsideXYInfinite.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Scenarios\UIVirtualization.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Scenarios\Virtualization\UIVirtualizationCoreNoVir.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Scenarios\Virtualization\UIVirtualizationCore.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Scenarios\WrongCustomTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -115,8 +115,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PullRefreshProgressControl.cs" />
     <Compile Include="PullToRefreshBox.cs" />
-    <Compile Include="Deprecated\PullToRefreshListView.cs" />
-    <Compile Include="Deprecated\PullToRefreshScrollViewer.cs" />
     <Content Include="Properties\PullToRefresh.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>
