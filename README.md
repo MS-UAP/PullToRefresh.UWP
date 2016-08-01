@@ -1,7 +1,7 @@
 # PullToRefresh.UWP
 Generic Pull Down to Refresh implementation for UWP.
 
-÷–ŒƒÀµ√˜≤Œº˚ [http://www.cnblogs.com/ms-uap/p/4814507.html](http://www.cnblogs.com/ms-uap/p/4814507.html)°£
+‰∏≠ÊñáËØ¥ÊòéÂèÇËßÅ [http://www.cnblogs.com/ms-uap/p/4814507.html](http://www.cnblogs.com/ms-uap/p/4814507.html)„ÄÇ
 
 ![pre1](http://images2015.cnblogs.com/blog/700062/201509/700062-20150924182012084-146770665.gif)
 
@@ -47,11 +47,11 @@ Then you just get PullToRefresh function.
 
 
 ## More usage
-1. Common properties:
-* `double RefreshThreshold {get;set;}`: Get/set the threshold to trigger a refresh.
-* `DataTemplate TopIndicatorTemplate {get;set;}`: Customize top indicator. The `DataContext` is a `double` value meaning the ratio of pulled distance to threshold. May be greater than 100%. The top indicator template decides max distance to pull down.
+* Common properties:
+      - `double RefreshThreshold {get;set;}`: Get/set the threshold to trigger a refresh.
+      - `DataTemplate TopIndicatorTemplate {get;set;}`: Customize top indicator. The `DataContext` is a `double` value meaning the ratio of pulled distance to threshold. May be greater than 100%. The top indicator template decides max distance to pull down.
 
-2. And this package provide a simple `PullRefreshProgressControl` to enable customized indicator.
+* And this package provide a simple `PullRefreshProgressControl` to enable customized indicator.
 
 For users who are not Simp.Chinese speaker, `PullRefreshProgressControl` has two property to customize native language as indicator text, you can set them like this:
 ```xaml
@@ -69,11 +69,12 @@ For users who are not Simp.Chinese speaker, `PullRefreshProgressControl` has two
 ```
 Don't forget to bind `Progress`.
 
-3. `PullRefreshProgressControl` has two `VisualState`s:
-* `Normal`
-* `ReleaseToRefresh`
+* `PullRefreshProgressControl` has two `VisualState`s:
+      - `Normal`
+      - `ReleaseToRefresh`
 
-which make richer customization possible:
+which makes richer customization possible:
+
 ![pre2](http://images2015.cnblogs.com/blog/700062/201509/700062-20150916195935617-990341701.gif)
 
 ```xaml
@@ -96,7 +97,7 @@ which make richer customization possible:
                                             <VisualState x:Name="ReleaseToRefresh">
                                                 <Storyboard>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="txt" Storyboard.TargetProperty="Text">
-                                                        <DiscreteObjectKeyFrame KeyTime="0" Value=" Õ∑≈À¢–¬" />
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="ÈáäÊîæÂà∑Êñ∞" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                 </Storyboard>
                                             </VisualState>
@@ -109,7 +110,7 @@ which make richer customization possible:
                                     </Grid.RowDefinitions>
 
                                     <TextBlock x:Name="txt"
-                                               Text="œ¬¿≠À¢–¬"
+                                               Text="‰∏ãÊãâÂà∑Êñ∞"
                                                Grid.Row="1"
                                                FontSize="20"
                                                HorizontalAlignment="Center" />
@@ -149,6 +150,6 @@ which make richer customization possible:
 </Grid>
 ```
 
-4. For more complex scenarios, try to use your own top template and bind to `DataContext`.
+* For more complex scenarios, try to use your own top template and bind to `DataContext`.
 
 ## Have fun coding UWP :)
